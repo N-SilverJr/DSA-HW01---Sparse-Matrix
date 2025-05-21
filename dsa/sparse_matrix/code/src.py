@@ -1,9 +1,3 @@
-"""
-This module implements a custom SparseMatrix class to load sparse matrices
-from a file, perform addition, subtraction, and multiplication, while ensuring
-no use of restricted Python libraries.
-"""
-
 class SparseMatrix:
     def __init__(self, matrix_file_path=None, num_rows=None, num_cols=None):
         self.data = {}  # {(row, col): value}
@@ -109,6 +103,10 @@ class SparseMatrix:
             output += f"({r}, {c}, {v})\n"
         return output
 
+    def save_to_file(self, file_path):
+        with open(file_path, 'w') as f:
+            f.write(str(self))
+
 # Main user interaction
 if __name__ == "__main__":
     print("Select matrix operation: add, subtract, multiply")
@@ -132,6 +130,11 @@ if __name__ == "__main__":
 
         print("\nResult Matrix:")
         print(result)
+
+        # Save the result to a file
+        output_file = "result_matrix.txt"
+        result.save_to_file(output_file)
+        print(f"\nResult saved to {output_file}")
 
     except Exception as e:
         print(f"Error: {e}")
